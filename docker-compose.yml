@@ -1,0 +1,43 @@
+services:
+  app:
+    build: ./docker/php
+    working_dir: /app
+    volumes:
+      - ./src:/app
+    ports:
+      - "8000:8000"
+    command: sh -c "PHP_CLI_SERVER_WORKERS=8 php artisan serve --no-reload --host=0.0.0.0 --port=8000"
+    depends_on:
+      - mysql
+      - mongo
+
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: farmacia
+      MYSQL_USER: farmacia
+      MYSQL_PASSWORD: farmacia_local
+      MYSQL_ROOT_PASSWORD: root_local
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  # Solo para compilar CSS/JS: docker compose run --rm node sh -c "npm install && npm run build"
+  node:
+    image: node:22-alpine
+    working_dir: /app
+    volumes:
+      - ./src:/app
+    profiles: ["build"]
+
+volumes:
+  mysql-data:
+  mongo-data:

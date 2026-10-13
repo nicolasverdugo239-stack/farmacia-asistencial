@@ -1,0 +1,43 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+/* Guía de estilo del sistema (ver prototipo): colores con contraste AA sobre blanco. */
+@theme {
+    --font-sans: 'Public Sans', ui-sans-serif, system-ui, 'Segoe UI', sans-serif;
+    --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+
+    --color-primario: #0E5A73;
+    --color-primario-oscuro: #0A4254;
+    --color-primario-suave: #E3EFF3;
+    --color-tinta: #16262B;
+    --color-secundario: #52636A;
+    --color-fondo: #F4F6F4;
+    --color-borde: #D9E0DD;
+    --color-exito: #1D6B44;
+    --color-exito-suave: #E6F4EC;
+    --color-aviso: #9A4A00;
+    --color-aviso-suave: #FFF4E5;
+    --color-peligro: #A61B1B;
+    --color-peligro-suave: #FDECEC;
+}
+
+@layer components {
+    .btn { @apply inline-flex min-h-11 cursor-pointer items-center justify-center rounded-lg px-4 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primario; }
+    .btn-p { @apply inline-flex min-h-11 cursor-pointer items-center justify-center rounded-lg bg-primario px-4 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primario hover:bg-primario-oscuro; }
+    .btn-g { @apply inline-flex min-h-11 cursor-pointer items-center justify-center rounded-lg border border-[#B9C7C2] bg-white px-4 text-sm font-semibold text-primario focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primario hover:bg-primario-suave; }
+    .btn-s { @apply min-h-9 px-3 text-[13px]; }
+    .card { @apply rounded-xl border border-borde bg-white; }
+    .inp { @apply min-h-11 w-full rounded-lg border border-[#B9C7C2] bg-white px-3 text-[15px] text-tinta focus:outline-2 focus:outline-primario; }
+    .lbl { @apply flex flex-col gap-1.5 text-[13px] font-semibold text-[#3E5057]; }
+    .chip { @apply inline-block rounded-full px-2.5 py-1 text-xs font-semibold whitespace-nowrap; }
+    .th { @apply text-xs font-semibold tracking-wide text-secundario uppercase; }
+    .titulo { @apply font-serif text-2xl font-bold text-tinta md:text-[28px]; }
+}
+
+/* Campos del tercero: visibles solo si se marca "Retira un tercero" (sin JavaScript). */
+.tercero-campos { display: none; }
+form:has(#retira_tercero:checked) .tercero-campos { display: grid; }
